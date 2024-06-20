@@ -6,4 +6,4 @@ services:
       - 'POSTGRES_USER=usrdemo'
       - 'POSTGRES_PASSWORD=secret'
     ports:
-      - '5432'
+      - '54332:5432'
