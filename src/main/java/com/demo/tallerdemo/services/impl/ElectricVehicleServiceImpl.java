@@ -25,6 +25,12 @@ public class ElectricVehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleDto registerVehicle(VehicleDto vehicleDto) {
+        if (!StringUtils.hasLength(vehicleDto.getVin()) || !StringUtils.hasLength(vehicleDto.getRegistrationPlate())) {
+            return null;
+        }
+        if (!StringUtils.hasLength(vehicleDto.getBattery()) || StringUtils.hasLength(vehicleDto.getCurrent()) || StringUtils.hasLength(vehicleDto.getVoltage())) {
+            return null;
+        }
         ElectricVehicle electricVehicle = new ElectricVehicle();
         electricVehicle.setVin(vehicleDto.getVin());
         electricVehicle.setRegistrationPlate(vehicleDto.getRegistrationPlate());
@@ -41,7 +47,7 @@ public class ElectricVehicleServiceImpl implements VehicleService {
     @Override
     public VehicleDto reconvert(String vin, List<String> fuelTypes) {
         Optional<ElectricVehicle> electricVehicleOptional = electricVehicleRepository.findVehicleByVin(vin);
-        if (electricVehicleOptional.isEmpty()) {
+        if (electricVehicleOptional.isEmpty() || fuelTypes == null || fuelTypes.isEmpty()) {
             return null;
         }
         ElectricVehicle electricVehicle = electricVehicleOptional.get();

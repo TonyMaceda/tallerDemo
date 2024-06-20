@@ -8,6 +8,7 @@ import com.demo.tallerdemo.services.VehicleService;
 import com.demo.tallerdemo.utils.VehicleBuilderUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.Instant;
 import java.util.List;
@@ -21,6 +22,12 @@ public class DieselVehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleDto registerVehicle(VehicleDto vehicleDto) {
+        if (!StringUtils.hasLength(vehicleDto.getVin()) || !StringUtils.hasLength(vehicleDto.getRegistrationPlate())) {
+            return null;
+        }
+        if (!StringUtils.hasLength(vehicleDto.getInjectionPump())) {
+            return null;
+        }
         DieselVehicle dieselVehicle = new DieselVehicle();
         dieselVehicle.setVin(vehicleDto.getVin());
         dieselVehicle.setRegistrationPlate(vehicleDto.getRegistrationPlate());

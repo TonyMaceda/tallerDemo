@@ -28,7 +28,7 @@ public class VehicleResource {
         VehicleService vehicleService = vehicleAdapter.getImpl(vehicleRequest.getCarType());
         VehicleDto vehicleDto = vehicleService.registerVehicle(VehicleBuilderUtil.buildVehicleFromRequest(vehicleRequest));
         if (vehicleDto == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         VehicleResponse vehicleResponse = VehicleBuilderUtil.buildVehicleResponse(vehicleDto);
         return new ResponseEntity<>(vehicleResponse, HttpStatus.CREATED);

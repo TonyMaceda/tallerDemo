@@ -26,10 +26,10 @@ public abstract class Vehicle {
     @Column(name = "updated_date")
     private Instant updatedDate;
 
-    @Column(name = "registration_plate", unique = true)
+    @Column(name = "registration_plate", unique = true, nullable = false)
     private String registrationPlate;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String vin;
 
 
